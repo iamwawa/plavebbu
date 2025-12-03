@@ -55,7 +55,7 @@
             }
 
             h1 {
-                font-size: 1.4em;
+                font-size: 1.3em;
                 margin-bottom: 20px;
             }
 
@@ -64,92 +64,197 @@
             }
 
             .product-thumbnail {
-                width: 70px;
-                height: 70px;
+                width: 85px;
+                height: 85px;
             }
 
             .product-name {
-                font-size: 0.9em;
+                font-size: 0.85em;
+            }
+
+            .product-detail {
+                font-size: 0.7em;
             }
 
             .product-price {
-                font-size: 0.95em;
+                font-size: 0.9em;
                 min-width: 70px;
             }
 
             .option-select {
-                min-width: 100px;
-                font-size: 0.85em;
+                min-width: 95px;
+                font-size: 0.8em;
+                padding: 8px 10px;
             }
 
             .quantity-control button {
-                width: 32px;
-                height: 32px;
+                width: 30px;
+                height: 30px;
+                font-size: 15px;
             }
 
             .quantity-control input {
-                width: 50px;
+                width: 45px;
+                font-size: 0.85em;
+            }
+
+            .selected-option {
+                font-size: 0.8em;
+            }
+
+            .remove-option-btn {
+                font-size: 0.75em;
+                padding: 6px 10px;
             }
 
             .summary {
-                padding: 20px;
+                padding: 18px;
             }
 
             .summary-row {
-                font-size: 1em;
+                font-size: 0.95em;
             }
 
             .summary-row.total {
-                font-size: 1.3em;
+                font-size: 1.25em;
             }
 
             .reset-button, .export-button {
-                font-size: 1em;
-                padding: 12px;
+                font-size: 0.95em;
+                padding: 13px;
+            }
+
+            #orderSummary {
+                padding: 20px;
+            }
+
+            #orderSummary h2 {
+                font-size: 1.25em;
+            }
+
+            .order-item-name {
+                font-size: 0.85em;
+            }
+
+            .order-item-option {
+                font-size: 0.75em;
+            }
+
+            .order-item-price {
+                font-size: 0.9em;
+            }
+
+            .order-total {
+                font-size: 1.3em;
             }
         }
 
         @media (max-width: 480px) {
-            .product-main {
-                flex-wrap: wrap;
-                gap: 10px;
+            h1 {
+                font-size: 1.2em;
             }
 
             .product-thumbnail {
-                width: 60px;
-                height: 60px;
+                width: 75px;
+                height: 75px;
             }
 
-            .product-info {
-                flex: 1 1 100%;
-                min-width: 100%;
-                order: 2;
+            .product-name {
+                font-size: 0.8em;
+            }
+
+            .product-detail {
+                font-size: 0.68em;
             }
 
             .product-price {
-                order: 3;
+                font-size: 0.85em;
             }
 
             .product-controls {
-                order: 4;
+                flex-wrap: wrap;
                 width: 100%;
+                margin-top: 8px;
             }
 
             .option-select {
                 width: 100%;
+                font-size: 0.8em;
+            }
+
+            .option-list {
+                gap: 8px;
+                margin-top: 12px;
+                padding-top: 12px;
             }
 
             .option-item {
                 flex-wrap: wrap;
+                gap: 10px;
             }
 
             .selected-option {
-                flex: 0 0 100%;
-                margin-bottom: 8px;
+                font-size: 0.78em;
+                width: 100%;
+            }
+
+            .quantity-control {
+                gap: 6px;
             }
 
             .remove-option-btn {
                 margin-left: 0;
+                font-size: 0.72em;
+            }
+
+            .summary {
+                padding: 16px;
+            }
+
+            .summary-row {
+                font-size: 0.9em;
+            }
+
+            .summary-row.total {
+                font-size: 1.2em;
+            }
+
+            .reset-button, .export-button {
+                font-size: 0.9em;
+                padding: 12px;
+            }
+
+            #orderSummary {
+                padding: 16px;
+            }
+
+            #orderSummary h2 {
+                font-size: 1.15em;
+            }
+
+            .order-item {
+                padding: 12px;
+            }
+
+            .order-item img {
+                width: 45px;
+                height: 45px;
+            }
+
+            .order-item-name {
+                font-size: 0.8em;
+            }
+
+            .order-item-option {
+                font-size: 0.7em;
+            }
+
+            .order-item-price {
+                font-size: 0.85em;
+            }
+
+            .order-total {
+                font-size: 1.2em;
             }
         }
 
@@ -331,13 +436,13 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 15px;
-            font-size: 1.1em;
+            font-size: 1em;
         }
 
         .summary-row.total {
             border-top: 2px solid white;
             padding-top: 15px;
-            font-size: 1.5em;
+            font-size: 1.4em;
             font-weight: bold;
         }
 
@@ -352,12 +457,12 @@
             padding: 15px;
             border: none;
             border-radius: 10px;
-            font-size: 1.1em;
+            font-size: 1em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
             touch-action: manipulation;
-            min-height: 50px;
+            min-height: 48px;
         }
 
         .reset-button {
@@ -394,6 +499,7 @@
             color: #ff9fc7;
             margin-bottom: 20px;
             text-align: center;
+            font-size: 1.4em;
         }
 
         .order-item {
@@ -422,10 +528,11 @@
             font-weight: bold;
             color: #495057;
             margin-bottom: 3px;
+            font-size: 0.9em;
         }
 
         .order-item-option {
-            font-size: 0.85em;
+            font-size: 0.8em;
             color: #868e96;
         }
 
@@ -433,11 +540,12 @@
             font-weight: bold;
             color: #ff9fc7;
             text-align: right;
+            font-size: 0.95em;
         }
 
         .order-total {
             text-align: right;
-            font-size: 1.5em;
+            font-size: 1.4em;
             font-weight: bold;
             color: #ff9fc7;
             margin-top: 20px;
