@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBUU 상품 선택</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffdee9 0%, #fff5f8 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(255,182,217,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff9fc7;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .product-list {
+            margin-bottom: 30px;
+        }
+
+        .product-item {
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #fff9fb;
+            border-radius: 10px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .product-item:hover {
+            background: #fff0f6;
+            border-color: #ffdee9;
+        }
+
+        .product-item.selected {
+            background: #fff0f6;
+            border-color: #ffb6d9;
+        }
+
+        .product-main {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .product-thumbnail {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 15px;
+            border: 2px solid #ffdee9;
+            flex-shrink: 0;
+        }
+
+        .product-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .product-name {
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 5px;
+            font-size: 0.95em;
+        }
+
+        .product-detail {
+            font-size: 0.8em;
+            color: #868e96;
+        }
+
+        .product-price {
+            font-weight: bold;
+            color: #ff9fc7;
+            margin-right: 15px;
+            min-width: 80px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .product-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .option-select {
+            padding: 8px 12px;
+            border: 2px solid #ffdee9;
+            border-radius: 5px;
+            background: white;
+            color: #868e96;
+            cursor: pointer;
+            font-size: 0.9em;
+            min-width: 120px;
+        }
+
+        .option-select:focus {
+            outline: none;
+            border-color: #ffb6d9;
+        }
+
+        .option-select.has-selection {
+            color: #495057;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quantity-control button {
+            width: 28px;
+            height: 28px;
+            border: none;
+            background: #ffb6d9;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .quantity-control button:hover {
+            background: #ff9fc7;
+        }
+
+        .quantity-control button:disabled {
+            background: #ffdee9;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .quantity-control input {
+            width: 45px;
+            text-align: center;
+            border: 2px solid #ffdee9;
+            border-radius: 5px;
+            padding: 5px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .remove-option-btn {
+            background: transparent;
+            color: #ff9fc7;
+            border: 2px solid #ffb6d9;
+            border-radius: 5px;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.3s;
+            margin-left: 8px;
+            font-weight: bold;
+        }
+
+        .remove-option-btn:hover {
+            background: #ffb6d9;
+            color: white;
+        }
+
+        .selected-option {
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #495057;
+            min-width: 60px;
+        }
+
+        .option-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #ffdee9;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .summary {
+            background: linear-gradient(135deg, #ffb6d9 0%, #ffdee9 100%);
+            padding: 25px;
+            border-radius: 15px;
+            color: white;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .summary-row.total {
+            border-top: 2px solid white;
+            padding-top: 15px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .reset-button, .export-button {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .reset-button {
+            background: white;
+            color: #ff9fc7;
+        }
+
+        .reset-button:hover {
+            background: #fff9fb;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,182,217,0.3);
+        }
+
+        .export-button {
+            background: white;
+            color: #ff9fc7;
+        }
+
+        .export-button:hover {
+            background: #fff9fb;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,182,217,0.3);
+        }
+
+        #orderSummary {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        #orderSummary h2 {
+            color: #ff9fc7;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #fff9fb;
+            border-radius: 10px;
+            border: 2px solid #ffdee9;
+        }
+
+        .order-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
+
+        .order-item-info {
+            flex: 1;
+        }
+
+        .order-item-name {
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 3px;
+        }
+
+        .order-item-option {
+            font-size: 0.85em;
+            color: #868e96;
+        }
+
+        .order-item-price {
+            font-weight: bold;
+            color: #ff9fc7;
+            text-align: right;
+        }
+
+        .order-total {
+            text-align: right;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #ff9fc7;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 3px solid #ffdee9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛍️ BBUU 상품 선택하기</h1>
+        
+        <div class="product-list" id="productList"></div>
+        
+        <div class="summary">
+            <div class="summary-row">
+                <span>선택한 상품:</span>
+                <span id="selectedCount">0개</span>
+            </div>
+            <div class="summary-row total">
+                <span>총 금액:</span>
+                <span id="totalPrice">₩0</span>
+            </div>
+            <div class="button-group">
+                <button class="reset-button" onclick="resetAll()">전체 초기화</button>
+                <button class="export-button" onclick="exportOrder()">주문서 내보내기</button>
+            </div>
+        </div>
+
+        <div id="orderSummary">
+            <h2>🎀 BBUU 주문서</h2>
+            <div id="orderItems"></div>
+            <div class="order-total" id="orderTotal"></div>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            { id: 1, name: "BBUU PHOTOCARD PACK", detail: "5EA, 1 SET", price: 7000, image: "https://cafe24img.poxo.com/vlastshop/web/product/big/202512/11665432b0b124e5975ea61ddc676a40.jpg", options: null },
+            { id: 2, name: "BBUU TRADING CAN BADGE", detail: "RANDOM 1 OUT OF 5", price: 5000, image: "https://cafe24img.poxo.com/vlastshop/web/product/medium/202512/b33df5877524dfa72c186fcdc0637cd2.jpg", options: null },
+            { id: 3, name: "BBUU ACRYLIC STICK KEYRING", detail: "", price: 19000, image: "https://cafe24img.poxo.com/vlastshop/web/product/medium/202512/dd310690697f9acff807a4f6a14e2d71.jpg", options: ["예준", "노아", "밤비", "은호", "하민"] },
+            { id: 4, name: "BBUU ACRYLIC CHARM KEYRING", detail: "", price: 7500, image: "https://cafe24img.poxo.com/vlastshop/web/product/medium/202512/14a89cdc1d641e0f6b5287ea26ecbf0d.jpg", options: ["예준", "노아", "밤비", "은호", "하민"] },
+            { id: 5, name: "BBUU TURN-AROUND ACRYLIC PHOTOCARD STAND", detail: "", price: 25000, image: "https://cafe24img.poxo.com/vlastshop/web/product/big/202512/8563ef40d18a774c881f84e45794db21.jpg", options: ["예준", "노아", "밤비", "은호", "하민"] },
+            { id: 6, name: "BBUU STICKER PACK", detail: "26 PCS, 1 SET", price: 13000, image: "https://cafe24img.poxo.com/vlastshop/web/product/medium/202512/993358dfa7038d963087cb2380bce801.jpg", options: null },
+            { id: 7, name: "BBUU CEREAL BOWL", detail: "", price: 22000, image: "https://cafe24img.poxo.com/vlastshop/web/product/medium/202512/e6f9d01f5bffe2e61f86f588fc06cd58.jpg", options: null },
+            { id: 8, name: "BBUU FUR BINDER", detail: "", price: 25000, image: "https://cafe24img.poxo.com/vlastshop/web/product/medium/202512/acb0b5913fcecaa8345ffc151dd8b436.jpg", options: ["DREAMHOUSE", "TEACUP"] },
+            { id: 9, name: "BBUU TRADING MINIATURE KEYRING", detail: "RANDOM 1 OUT OF 5", price: 6000, image: "https://cafe24img.poxo.com/vlastshop/web/product/medium/202512/10831ebbab14dcd07d66172e49c7307b.jpg", options: null },
+            { id: 10, name: "BBUU FACE CUSHION", detail: "", price: 25000, image: "https://cafe24img.poxo.com/vlastshop/web/product/medium/202512/8eeff3998c81cf1b7ffe7de2bd770dca.jpg", options: ["예준", "노아", "밤비", "은호", "하민"] }
+        ];
+
+        // 상품별 선택된 옵션과 수량 저장
+        // { productId: [{ option: 'optionName', quantity: number }, ...] }
+        let selectedItems = {};
+        products.forEach(p => selectedItems[p.id] = []);
+
+        function renderProducts() {
+            const container = document.getElementById('productList');
+            container.innerHTML = products.map(product => {
+                const items = selectedItems[product.id];
+                const hasItems = items.length > 0;
+
+                // 옵션이 있는 상품
+                if (product.options) {
+                    const usedOptions = items.map(item => item.option);
+                    const availableOptions = product.options.filter(opt => !usedOptions.includes(opt));
+                    
+                    let html = `<div class="product-item ${hasItems ? 'selected' : ''}">
+                        <div class="product-main">
+                            <img src="${product.image}" alt="${product.name}" class="product-thumbnail">
+                            <div class="product-info">
+                                <div class="product-name">${product.name}</div>
+                                ${product.detail ? `<div class="product-detail">${product.detail}</div>` : ''}
+                            </div>
+                            <div class="product-price">₩${product.price.toLocaleString()}</div>
+                            <div class="product-controls">
+                                <select class="option-select ${hasItems ? 'has-selection' : ''}" onchange="addOptionFromSelect(${product.id}, this)">
+                                    <option value="">옵션 선택</option>
+                                    ${availableOptions.map(opt => 
+                                        `<option value="${opt}">${opt}</option>`
+                                    ).join('')}
+                                </select>
+                            </div>
+                        </div>`;
+
+                    // 선택된 옵션들을 같은 박스 안에 표시
+                    if (items.length > 0) {
+                        html += `<div class="option-list">`;
+                        items.forEach((item, idx) => {
+                            html += `<div class="option-item">
+                                <div class="selected-option">${item.option}</div>
+                                <div style="flex: 1;"></div>
+                                <div class="quantity-control">
+                                    <button onclick="decreaseOptionQuantity(${product.id}, ${idx})">-</button>
+                                    <input type="number" value="${item.quantity}" min="1" max="99" 
+                                           onchange="updateOptionQuantity(${product.id}, ${idx}, this.value)">
+                                    <button onclick="increaseOptionQuantity(${product.id}, ${idx})">+</button>
+                                </div>
+                                <button class="remove-option-btn" onclick="removeOption(${product.id}, ${idx})">삭제</button>
+                            </div>`;
+                        });
+                        html += `</div>`;
+                    }
+
+                    html += `</div>`;
+                    return html;
+                } else {
+                    // 옵션이 없는 상품
+                    const quantity = items.length > 0 ? items[0].quantity : 0;
+                    return `<div class="product-item ${quantity > 0 ? 'selected' : ''}">
+                        <div class="product-main">
+                            <img src="${product.image}" alt="${product.name}" class="product-thumbnail">
+                            <div class="product-info">
+                                <div class="product-name">${product.name}</div>
+                                ${product.detail ? `<div class="product-detail">${product.detail}</div>` : ''}
+                            </div>
+                            <div class="product-price">₩${product.price.toLocaleString()}</div>
+                            <div class="quantity-control">
+                                <button onclick="decreaseQuantity(${product.id})" ${quantity <= 0 ? 'disabled' : ''}>-</button>
+                                <input type="number" value="${quantity}" min="0" max="99" 
+                                       onchange="updateQuantity(${product.id}, this.value)">
+                                <button onclick="increaseQuantity(${product.id})">+</button>
+                            </div>
+                        </div>
+                    </div>`;
+                }
+            }).join('');
+            updateSummary();
+        }
+
+        function addOptionFromSelect(productId, selectElement) {
+            const option = selectElement.value;
+            if (option && !selectedItems[productId].find(item => item.option === option)) {
+                selectedItems[productId].push({ option: option, quantity: 1 });
+                selectElement.value = ""; // 선택 초기화
+                renderProducts();
+            }
+        }
+
+        function removeOption(productId, index) {
+            selectedItems[productId].splice(index, 1);
+            renderProducts();
+        }
+
+        function increaseOptionQuantity(productId, index) {
+            if (selectedItems[productId][index].quantity < 99) {
+                selectedItems[productId][index].quantity++;
+                renderProducts();
+            }
+        }
+
+        function decreaseOptionQuantity(productId, index) {
+            if (selectedItems[productId][index].quantity > 1) {
+                selectedItems[productId][index].quantity--;
+                renderProducts();
+            }
+        }
+
+        function updateOptionQuantity(productId, index, value) {
+            const num = parseInt(value) || 1;
+            selectedItems[productId][index].quantity = Math.max(1, Math.min(99, num));
+            renderProducts();
+        }
+
+        function increaseQuantity(productId) {
+            if (selectedItems[productId].length === 0) {
+                selectedItems[productId].push({ option: null, quantity: 1 });
+            } else if (selectedItems[productId][0].quantity < 99) {
+                selectedItems[productId][0].quantity++;
+            }
+            renderProducts();
+        }
+
+        function decreaseQuantity(productId) {
+            if (selectedItems[productId].length > 0 && selectedItems[productId][0].quantity > 0) {
+                selectedItems[productId][0].quantity--;
+                if (selectedItems[productId][0].quantity === 0) {
+                    selectedItems[productId] = [];
+                }
+                renderProducts();
+            }
+        }
+
+        function updateQuantity(productId, value) {
+            const num = parseInt(value) || 0;
+            if (num === 0) {
+                selectedItems[productId] = [];
+            } else if (selectedItems[productId].length === 0) {
+                selectedItems[productId].push({ option: null, quantity: Math.max(0, Math.min(99, num)) });
+            } else {
+                selectedItems[productId][0].quantity = Math.max(0, Math.min(99, num));
+            }
+            renderProducts();
+        }
+
+        function updateSummary() {
+            let total = 0;
+            let totalQuantity = 0;
+
+            products.forEach(product => {
+                const items = selectedItems[product.id];
+                items.forEach(item => {
+                    total += product.price * item.quantity;
+                    totalQuantity += item.quantity;
+                });
+            });
+
+            document.getElementById('selectedCount').textContent = `${totalQuantity}개`;
+            document.getElementById('totalPrice').textContent = `₩${total.toLocaleString()}`;
+        }
+
+        function resetAll() {
+            if (confirm('모든 선택을 초기화하시겠습니까?')) {
+                products.forEach(p => selectedItems[p.id] = []);
+                renderProducts();
+            }
+        }
+
+        async function exportOrder() {
+            let total = 0;
+            let orderHTML = '';
+
+            products.forEach(product => {
+                const items = selectedItems[product.id];
+                items.forEach(item => {
+                    const subtotal = product.price * item.quantity;
+                    total += subtotal;
+                    
+                    orderHTML += `<div class="order-item">
+                        <img src="${product.image}" alt="${product.name}" crossorigin="anonymous">
+                        <div class="order-item-info">
+                            <div class="order-item-name">${product.name}</div>
+                            ${item.option ? `<div class="order-item-option">옵션: ${item.option}</div>` : ''}
+                            <div class="order-item-option">수량: ${item.quantity}개</div>
+                        </div>
+                        <div class="order-item-price">₩${subtotal.toLocaleString()}</div>
+                    </div>`;
+                });
+            });
+
+            if (orderHTML === '') {
+                alert('선택된 상품이 없습니다!');
+                return;
+            }
+
+            document.getElementById('orderItems').innerHTML = orderHTML;
+            document.getElementById('orderTotal').textContent = `총 금액: ₩${total.toLocaleString()}`;
+            document.getElementById('orderSummary').style.display = 'block';
+
+            // 이미지가 로드될 때까지 대기
+            await new Promise(resolve => setTimeout(resolve, 500));
+
+            const element = document.getElementById('orderSummary');
+            const canvas = await html2canvas(element, {
+                backgroundColor: '#ffffff',
+                scale: 2,
+                logging: false,
+                useCORS: true,
+                allowTaint: true
+            });
+
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                const date = new Date().toISOString().slice(0, 10);
+                link.download = `BBUU_주문서_${date}.png`;
+                link.href = url;
+                link.click();
+                URL.revokeObjectURL(url);
+                
+                document.getElementById('orderSummary').style.display = 'none';
+            });
+        }
+
+        renderProducts();
+    </script>
+</body>
+</html>
