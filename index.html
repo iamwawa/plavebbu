@@ -13,220 +13,41 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #ffdee9 0%, #fff5f8 100%);
-            padding: 15px;
+            padding: 10px;
             min-height: 100vh;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 100%;
             margin: 0 auto;
             background: white;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(255,182,217,0.2);
+            border-radius: 15px;
+            padding: 12px;
+            box-shadow: 0 5px 20px rgba(255,182,217,0.2);
         }
 
         h1 {
             text-align: center;
             color: #ff9fc7;
-            margin-bottom: 25px;
-            font-size: 1.6em;
-        }
-
-        .product-thumbnail {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-right: 15px;
-            border: 2px solid #ffdee9;
-            flex-shrink: 0;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 8px;
-            }
-
-            .container {
-                padding: 12px;
-            }
-
-            h1 {
-                font-size: 1.2em;
-                margin-bottom: 15px;
-            }
-
-            .product-item {
-                padding: 10px;
-            }
-
-            .product-thumbnail {
-                width: 60px;
-                height: 60px;
-                margin-right: 10px;
-            }
-
-            .product-name {
-                font-size: 0.8em;
-                line-height: 1.3;
-                word-break: keep-all;
-            }
-
-            .product-detail {
-                font-size: 0.7em;
-            }
-
-            .product-price {
-                font-size: 0.85em;
-                min-width: 60px;
-                margin-right: 8px;
-            }
-
-            .option-select {
-                min-width: 90px;
-                font-size: 0.75em;
-                padding: 8px 10px;
-                min-height: 36px;
-            }
-
-            .quantity-control {
-                gap: 5px;
-            }
-
-            .quantity-control button {
-                width: 28px;
-                height: 28px;
-                font-size: 16px;
-            }
-
-            .quantity-control input {
-                width: 45px;
-                font-size: 0.85em;
-                padding: 4px;
-                min-height: 28px;
-            }
-
-            .summary {
-                padding: 15px;
-            }
-
-            .summary-row {
-                font-size: 0.9em;
-                margin-bottom: 12px;
-            }
-
-            .summary-row.total {
-                font-size: 1.15em;
-            }
-
-            .reset-button, .export-button {
-                font-size: 0.9em;
-                padding: 12px;
-                min-height: 45px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .product-main {
-                flex-wrap: wrap;
-                gap: 8px;
-            }
-
-            .product-thumbnail {
-                width: 55px;
-                height: 55px;
-                margin-right: 8px;
-            }
-
-            .product-info {
-                flex: 1 1 auto;
-                min-width: 0;
-                order: 1;
-                max-width: calc(100% - 140px);
-            }
-
-            .product-name {
-                font-size: 0.75em;
-                line-height: 1.2;
-                word-break: keep-all;
-                overflow-wrap: break-word;
-            }
-
-            .product-detail {
-                font-size: 0.65em;
-            }
-
-            .product-price {
-                order: 2;
-                font-size: 0.8em;
-                min-width: 55px;
-                margin-right: 5px;
-            }
-
-            .product-controls {
-                order: 3;
-                width: 100%;
-                margin-top: 8px;
-            }
-
-            .option-select {
-                width: 100%;
-                font-size: 0.75em;
-            }
-
-            .option-item {
-                flex-wrap: nowrap;
-                gap: 8px;
-                align-items: center;
-            }
-
-            .selected-option {
-                flex: 0 0 auto;
-                font-size: 0.8em;
-                min-width: 50px;
-                max-width: 80px;
-                word-break: keep-all;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-            }
-
-            .quantity-control {
-                flex: 0 0 auto;
-                flex-shrink: 0;
-                gap: 4px;
-            }
-
-            .remove-option-btn {
-                margin-left: auto;
-                flex: 0 0 auto;
-                font-size: 0.75em;
-                padding: 6px 12px;
-                min-height: 32px;
-            }
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            font-weight: 600;
         }
 
         .product-list {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .product-item {
             display: flex;
             flex-direction: column;
-            padding: 15px;
-            margin-bottom: 10px;
+            padding: 10px;
+            margin-bottom: 8px;
             background: #fff9fb;
             border-radius: 10px;
-            transition: all 0.3s;
             border: 2px solid transparent;
-        }
-
-        .product-item:hover {
-            background: #fff0f6;
-            border-color: #ffdee9;
         }
 
         .product-item.selected {
@@ -236,58 +57,67 @@
 
         .product-main {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             width: 100%;
+            gap: 10px;
+        }
+
+        .product-thumbnail {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #ffdee9;
+            flex-shrink: 0;
         }
 
         .product-info {
             flex: 1;
             min-width: 0;
-            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
         }
 
         .product-name {
-            font-weight: bold;
+            font-weight: 600;
             color: #495057;
-            margin-bottom: 5px;
-            font-size: 0.95em;
-            word-break: keep-all;
-            overflow-wrap: break-word;
+            font-size: 0.85em;
             line-height: 1.3;
+            word-break: keep-all;
         }
 
         .product-detail {
-            font-size: 0.8em;
+            font-size: 0.7em;
             color: #868e96;
             word-break: keep-all;
         }
 
         .product-price {
-            font-weight: bold;
+            font-weight: 600;
             color: #ff9fc7;
-            margin-right: 15px;
-            min-width: 80px;
-            text-align: right;
+            font-size: 0.85em;
             flex-shrink: 0;
+            white-space: nowrap;
         }
 
         .product-controls {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             flex-shrink: 0;
         }
 
         .option-select {
-            padding: 10px 12px;
+            padding: 8px 10px;
             border: 2px solid #ffdee9;
             border-radius: 5px;
             background: white;
             color: #868e96;
             cursor: pointer;
-            font-size: 0.9em;
-            min-width: 120px;
-            min-height: 40px;
+            font-size: 0.75em;
+            min-height: 34px;
+            width: 100%;
         }
 
         .option-select:focus {
@@ -302,23 +132,27 @@
         .quantity-control {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
+            flex-shrink: 0;
         }
 
         .quantity-control button {
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             border: none;
             background: #ffb6d9;
             color: white;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 18px;
-            transition: background 0.3s;
+            font-size: 16px;
+            font-weight: bold;
             touch-action: manipulation;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .quantity-control button:hover {
+        .quantity-control button:active {
             background: #ff9fc7;
         }
 
@@ -329,14 +163,39 @@
         }
 
         .quantity-control input {
-            width: 50px;
+            width: 42px;
             text-align: center;
             border: 2px solid #ffdee9;
             border-radius: 5px;
-            padding: 6px;
-            font-weight: bold;
-            font-size: 0.95em;
-            min-height: 30px;
+            padding: 4px;
+            font-weight: 600;
+            font-size: 0.8em;
+            min-height: 28px;
+        }
+
+        .option-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #ffdee9;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: nowrap;
+        }
+
+        .selected-option {
+            font-size: 0.8em;
+            font-weight: 500;
+            color: #495057;
+            flex-shrink: 0;
+            min-width: 50px;
+            word-break: keep-all;
         }
 
         .remove-option-btn {
@@ -344,172 +203,135 @@
             color: #ff9fc7;
             border: 2px solid #ffb6d9;
             border-radius: 5px;
-            padding: 8px 14px;
+            padding: 5px 10px;
             cursor: pointer;
-            font-size: 0.85em;
-            transition: all 0.3s;
-            margin-left: 8px;
-            font-weight: bold;
+            font-size: 0.75em;
+            font-weight: 600;
             touch-action: manipulation;
-            min-height: 36px;
+            min-height: 28px;
+            margin-left: auto;
+            flex-shrink: 0;
         }
 
-        .remove-option-btn:hover {
+        .remove-option-btn:active {
             background: #ffb6d9;
             color: white;
         }
 
-        .selected-option {
-            font-size: 0.9em;
-            font-weight: 600;
-            color: #495057;
-            min-width: 60px;
-            flex-shrink: 0;
-            word-break: keep-all;
-        }
-
-        .option-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #ffdee9;
-        }
-
-        .option-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .option-item .quantity-control {
-            flex-shrink: 0;
-        }
-
         .summary {
             background: linear-gradient(135deg, #ffb6d9 0%, #ffdee9 100%);
-            padding: 25px;
-            border-radius: 15px;
+            padding: 15px;
+            border-radius: 12px;
             color: white;
         }
 
         .summary-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 15px;
-            font-size: 1.1em;
+            margin-bottom: 12px;
+            font-size: 0.9em;
         }
 
         .summary-row.total {
             border-top: 2px solid white;
-            padding-top: 15px;
-            font-size: 1.5em;
+            padding-top: 12px;
+            font-size: 1.15em;
             font-weight: bold;
         }
 
         .button-group {
             display: flex;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 8px;
+            margin-top: 15px;
         }
 
         .reset-button, .export-button {
             flex: 1;
-            padding: 15px;
+            padding: 12px;
             border: none;
-            border-radius: 10px;
-            font-size: 1.1em;
-            font-weight: bold;
+            border-radius: 8px;
+            font-size: 0.9em;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
             touch-action: manipulation;
-            min-height: 50px;
-        }
-
-        .reset-button {
+            min-height: 44px;
             background: white;
             color: #ff9fc7;
         }
 
-        .reset-button:hover {
+        .reset-button:active, .export-button:active {
             background: #fff9fb;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255,182,217,0.3);
-        }
-
-        .export-button {
-            background: white;
-            color: #ff9fc7;
-        }
-
-        .export-button:hover {
-            background: #fff9fb;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255,182,217,0.3);
+            transform: scale(0.98);
         }
 
         #orderSummary {
             background: white;
-            padding: 30px;
-            border-radius: 15px;
-            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 15px;
             display: none;
         }
 
         #orderSummary h2 {
             color: #ff9fc7;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: center;
+            font-size: 1.1em;
         }
 
         .order-item {
             display: flex;
             align-items: center;
-            padding: 15px;
-            margin-bottom: 10px;
+            padding: 12px;
+            margin-bottom: 8px;
             background: #fff9fb;
-            border-radius: 10px;
+            border-radius: 8px;
             border: 2px solid #ffdee9;
         }
 
         .order-item img {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             object-fit: cover;
-            border-radius: 8px;
-            margin-right: 15px;
+            border-radius: 6px;
+            margin-right: 12px;
+            flex-shrink: 0;
         }
 
         .order-item-info {
             flex: 1;
+            min-width: 0;
         }
 
         .order-item-name {
-            font-weight: bold;
+            font-weight: 600;
             color: #495057;
             margin-bottom: 3px;
+            font-size: 0.85em;
         }
 
         .order-item-option {
-            font-size: 0.85em;
+            font-size: 0.75em;
             color: #868e96;
         }
 
         .order-item-price {
-            font-weight: bold;
+            font-weight: 600;
             color: #ff9fc7;
             text-align: right;
+            font-size: 0.85em;
+            flex-shrink: 0;
+            margin-left: 10px;
         }
 
         .order-total {
             text-align: right;
-            font-size: 1.5em;
+            font-size: 1.2em;
             font-weight: bold;
             color: #ff9fc7;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 3px solid #ffdee9;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #ffdee9;
         }
     </style>
 </head>
@@ -555,8 +377,6 @@
             { id: 10, name: "BBUU FACE CUSHION", detail: "", price: 25000, image: "https://cafe24img.poxo.com/vlastshop/web/product/medium/202512/8eeff3998c81cf1b7ffe7de2bd770dca.jpg", options: ["예준", "노아", "밤비", "은호", "하민"] }
         ];
 
-        // 상품별 선택된 옵션과 수량 저장
-        // { productId: [{ option: 'optionName', quantity: number }, ...] }
         let selectedItems = {};
         products.forEach(p => selectedItems[p.id] = []);
 
@@ -566,7 +386,6 @@
                 const items = selectedItems[product.id];
                 const hasItems = items.length > 0;
 
-                // 옵션이 있는 상품
                 if (product.options) {
                     const usedOptions = items.map(item => item.option);
                     const availableOptions = product.options.filter(opt => !usedOptions.includes(opt));
@@ -579,17 +398,16 @@
                                 ${product.detail ? `<div class="product-detail">${product.detail}</div>` : ''}
                             </div>
                             <div class="product-price">₩${product.price.toLocaleString()}</div>
-                            <div class="product-controls">
-                                <select class="option-select ${hasItems ? 'has-selection' : ''}" onchange="addOptionFromSelect(${product.id}, this)">
-                                    <option value="">옵션 선택</option>
-                                    ${availableOptions.map(opt => 
-                                        `<option value="${opt}">${opt}</option>`
-                                    ).join('')}
-                                </select>
-                            </div>
+                        </div>
+                        <div class="product-controls" style="margin-top: 8px;">
+                            <select class="option-select ${hasItems ? 'has-selection' : ''}" onchange="addOptionFromSelect(${product.id}, this)">
+                                <option value="">옵션 선택</option>
+                                ${availableOptions.map(opt => 
+                                    `<option value="${opt}">${opt}</option>`
+                                ).join('')}
+                            </select>
                         </div>`;
 
-                    // 선택된 옵션들을 같은 박스 안에 표시
                     if (items.length > 0) {
                         html += `<div class="option-list">`;
                         items.forEach((item, idx) => {
@@ -610,7 +428,6 @@
                     html += `</div>`;
                     return html;
                 } else {
-                    // 옵션이 없는 상품
                     const quantity = items.length > 0 ? items[0].quantity : 0;
                     return `<div class="product-item ${quantity > 0 ? 'selected' : ''}">
                         <div class="product-main">
@@ -637,7 +454,7 @@
             const option = selectElement.value;
             if (option && !selectedItems[productId].find(item => item.option === option)) {
                 selectedItems[productId].push({ option: option, quantity: 1 });
-                selectElement.value = ""; // 선택 초기화
+                selectElement.value = "";
                 renderProducts();
             }
         }
@@ -752,7 +569,6 @@
             document.getElementById('orderTotal').textContent = `총 금액: ₩${total.toLocaleString()}`;
             document.getElementById('orderSummary').style.display = 'block';
 
-            // 이미지가 로드될 때까지 대기
             await new Promise(resolve => setTimeout(resolve, 500));
 
             const element = document.getElementById('orderSummary');
